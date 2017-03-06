@@ -7,7 +7,7 @@ func Hey(s string) string {
     return "Whoa, chill out!"
   } else if EndWithQuestion(strings.TrimSpace(s)) {
     return "Sure."
-  } else if AllNonCharacter(s) {
+  } else if AllNonCharacter(strings.TrimSpace(s)) {
     return "Fine. Be that way!"
   } else {
     return "Whatever."
@@ -15,23 +15,26 @@ func Hey(s string) string {
 }
 
 func EndWithQuestion(s string) bool {
-  return s[len(s) - 1] == '?'
+  return len(s) > 0 && s[len(s) - 1] == '?'
 }
 
 func AllUpper(s string) bool {
   containNonUpper := false
   containUpper := false
   for _, c := range(s) {
-    if (c >= 'A' && c <= 'Z') || (c == '!') || (c == ' ') || (c == '?'){
+    if (c >= 'A' && c <= 'Z') || (c == '!'){
       containUpper = true
-    } else {
+    } else if (c >= 'a' && c <= 'z') {
       containNonUpper = true
     }
   }
-  return containUpper && !containNonUpper
+  return containUpper && !containNonUpper && (strings.ToUpper(s) == s)
 }
 
 func AllNonCharacter(s string) bool {
+  if len(s) == 0 {
+    return true
+  }
   for _, c := range(s) {
     if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') {
       return false
