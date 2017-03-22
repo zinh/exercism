@@ -1,14 +1,33 @@
 package romannumerals
-//import "errors"
 
-var dict = map[int]string {
-  1: 'I',
-  5: 'V',
-  10: 'X',
-  50: 'L',
-  100: 'C',
-  500: 'D',
-  1000: 'M'
-}
-func ToRomanNumeral(n int) (string, error){
+import (
+	"errors"
+	"strings"
+)
+
+const testVersion = 3
+
+var huns = []string{"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}
+var tens = []string{"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}
+var ones = []string{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}
+
+var size = []int{0, 1, 2, 3, 2, 1, 2, 3, 4, 2}
+
+func ToRomanNumeral(n int) (string, error) {
+	if n <= 0 || n >= 4000 {
+		return "", errors.New("Out of range")
+	}
+	results := []string{}
+	for n >= 1000 {
+		results = append(results, "M")
+		n -= 1000
+	}
+	results = append(results, huns[n/100])
+	n = n % 100
+
+	results = append(results, tens[n/10])
+	n = n % 10
+
+	results = append(results, ones[n])
+	return strings.Join(results, ""), nil
 }
