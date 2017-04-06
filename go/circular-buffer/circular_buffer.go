@@ -2,9 +2,14 @@ package circular
 
 const testVersion = 4
 
-type Buffer
+type Buffer struct {
+  content []int
+  pointer int
+}
 
-func NewBuffer(size int) *Buffer
+func NewBuffer(size int) *Buffer {
+  return Buffer{content: []int{}, 0}
+}
 
 func (*Buffer) ReadByte() (byte, error)
 
