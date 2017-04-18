@@ -2,6 +2,7 @@ name: grade-school
 
 dependencies:
   - base
+  - containers
 
 library:
   exposed-modules: School

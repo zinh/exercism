@@ -1,20 +1,13 @@
 module School (School, add, empty, grade, sorted) where
+import qualified Data.Map as Map
 
-data School = School [(Int, [String])]
+data School = School (Map.Map Int [String])
   deriving (Show)
 
 add :: Int -> String -> School -> School
-add gradeNum student (School []) = School [(gradeNum, [student])]
-add gradeNum student (School lst) = School $ foldr f [] lst
-  where f g@(grade, lst@(s:sx)) memo = if grade == gradeNum
-                                          then (grade, insertStudent student lst) : memo
-                                          else g:memo
-
-add' :: Int -> String -> School -> School
-add' gradeNum student (School []) lst = School (gradeNum, [student]):currentLst
-add' gradeNum student (School x@(grade, s):xs) currentLst
-  | gradeNum == grade = xs ++ (grade, student:s):currentLst
-  | otherwise = add' gradeNum student (School x:currentLst)
+add gradeNum student (School m) = case Map.lookup gradeNum m of
+                                    Just students -> School (Map.insert gradeNum (insertStudent student students) m)
+                                    Nothing -> School (Map.insert gradeNum [student] m)
 
 insertStudent :: String -> [String] -> [String]
 insertStudent student lst = if length(newList) == length(lst) 
@@ -26,10 +19,12 @@ insertStudent student lst = if length(newList) == length(lst)
         newList = foldr (insertStudent') [] lst
 
 empty :: School
-empty = School []
+empty = School Map.empty
 
 grade :: Int -> School -> [String]
-grade gradeNum school = [] 
+grade gradeNum (School m) = case Map.lookup gradeNum m of
+                              Just students -> students
+                              Nothing -> []
 
 sorted :: School -> [(Int, [String])]
-sorted (School lst) = lst
+sorted (School m) = Map.toList m
