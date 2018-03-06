@@ -8,6 +8,11 @@ defmodule RotationalCipher do
   """
   @spec rotate(text :: String.t(), shift :: integer) :: String.t()
   def rotate(text, shift) do
+    Enum.map(text, fn(x) ->
+      encrypt(x, shift)
+    end)
+  end
+
+  def encrypt(char, shift) do
   end
 end
-
