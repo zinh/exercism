@@ -1,5 +1,5 @@
 #include <vector>
 #include <map>
 namespace etl {
-  std::map<char, int> transform(std::map<int, std::vector<char>>);
+  std::map<char, int> transform(std::map<int, std::vector<char>> const&);
 }

@@ -8,7 +8,7 @@ namespace etl {
       int score = element.first;
       vector<char> labels = element.second;
       for(auto label : labels){
-        results[label] = score;
+        results[tolower(label)] = score;
       }
     }
     return results;
