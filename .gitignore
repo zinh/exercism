@@ -4,3 +4,5 @@ rust/*/target
 build
 *.out
 *.out.dSYM
+__pycache__
+.pytest_cache
