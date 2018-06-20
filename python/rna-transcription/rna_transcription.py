@@ -1,2 +1,5 @@
 def to_rna(dna_strand):
-    pass
+    h = {'C': 'G', 'G': 'C', 
+            'T': 'A',
+            'A': 'U'}
+    return ''.join(map(lambda c: h[c], dna_strand))
