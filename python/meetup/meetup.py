@@ -1,5 +1,6 @@
 from datetime import date
-MeetupDayException = "Wrong format"
+class MeetupDayException(Exception):
+    pass
 
 def meetup_day(year, month, day_of_the_week, which):
     return get_nth_day(year, month, map_week_day(day_of_the_week), map_day(which))
@@ -67,6 +68,6 @@ def get_nth_day(year, month, day_of_the_week, nth):
         try:
             return date(year, month, first_day + (nth - 1) * 7)
         except:
-            raise Exception(MeetupDayException)
+            raise MeetupDayException(MeetupDayException)
 
 # print (meetup_day(2015, 2, 'Monday', '5th'))
