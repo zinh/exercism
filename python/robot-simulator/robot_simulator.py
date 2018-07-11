@@ -18,14 +18,10 @@ class Robot(object):
         return (self.x, self.y)
 
     def turn_right(self):
-        r = self.rotate(-pi/2)
-        bearing = self.bearing
-        self.bearing = self.mul(r, bearing)
+        self.bearing = self.mul(self.rotate(-pi/2), self.bearing)
 
     def turn_left(self):
-        r = self.rotate(pi/2)
-        bearing = self.bearing
-        self.bearing = self.mul(r, bearing)
+        self.bearing = self.mul(self.rotate(pi/2), self.bearing)
 
     def advance(self):
         self.x = self.x + self.bearing[0]
