@@ -1,7 +1,11 @@
 def say(number):
-    if number < 0:
+    if number < 0 or number >= 1e12:
         raise ValueError('Invalid number')
-    return less_than_99(number)
+    if number < 100:
+        return less_than_99(number)
+    if number < 1000:
+        return hundred(number)
+    return thousand(number)
 
 def unit(number):
     m = {0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four',
@@ -11,7 +15,7 @@ def unit(number):
     return m.get(number)
 
 def tenth(number):
-    m = {2: 'twenty', 3: 'thirty', 4: 'fourty', 5: 'fifty'}
+    m = {2: 'twenty', 3: 'thirty', 4: 'forty', 5: 'fifty', 8: 'eighty'}
     if m.get(number):
         return m.get(number)
     elif 6 <= number <= 9:
@@ -20,8 +24,16 @@ def tenth(number):
         return ''
 
 def thousand(number):
-    m = {1e9: 'bilion', 1e6: 'million', 1e3: 'thousand'}
-    return ' '.join([f'{hundred(number // k)} {v}' for k, v in m.items() if number // k > 0])
+    m = {1e9: 'billion', 1e6: 'million', 1e3: 'thousand', 1e2: 'hundred'}
+    result = []
+    for k, v in m.items():
+        if number // k > 0:
+            result.append(f'{hundred(number // k)} {v}')
+            number = number % k
+    if number > 0:
+        result.append('and')
+        result.append(hundred(number))
+    return ' '.join(result)
 
 def hundred(number):
     if number // 100 > 0:
@@ -40,4 +52,3 @@ def less_than_99(number):
             return '-'.join([tenth(number // 10), unit(number % 10)])
         else:
             return tenth(number // 10)
-print(thousand(1001))
