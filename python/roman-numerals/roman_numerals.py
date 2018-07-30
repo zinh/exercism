@@ -1,4 +1,14 @@
 def numeral(number):
-    m = {1000: 'M', 500: 'D', 100: 'C', 50: 'L', 10: 'X', 5: 'V', 1: 'I'}
+    ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+    tens = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    hundreds = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
     result = []
-    for num, roman in m.items():
+    while number >= 1000:
+        result.append('M')
+        number -= 1000
+    result.append(hundreds[number // 100])
+    number = number % 100
+    result.append(tens[number // 10])
+    number = number % 10
+    result.append(ones[number])
+    return ''.join(result)

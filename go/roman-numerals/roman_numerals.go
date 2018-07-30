@@ -11,8 +11,6 @@ var huns = []string{"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}
 var tens = []string{"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}
 var ones = []string{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}
 
-var size = []int{0, 1, 2, 3, 2, 1, 2, 3, 4, 2}
-
 func ToRomanNumeral(n int) (string, error) {
 	if n <= 0 || n >= 4000 {
 		return "", errors.New("Out of range")
