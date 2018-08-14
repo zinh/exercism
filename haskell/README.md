@@ -1,0 +1,22 @@
+## Exercises list
+
+- [x] acronym
+- [x] bob
+- [x] collatz-conjecture
+- [x] difference-of-squares
+- [x] etl
+- [x] grade-school
+- [x] grains
+- [x] hamming
+- [x] hello-world
+- [x] isbn-verifier
+- [x] leap
+- [x] nucleotide-count
+- [x] pangram
+- [x] raindrops
+- [x] rna-transcription
+- [x] run-length-encoding
+- [x] space-age
+- [x] sum-of-multiples
+- [ ] isogram
+- [ ] perfect numbers
