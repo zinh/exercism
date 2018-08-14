@@ -18,5 +18,5 @@
 - [x] run-length-encoding
 - [x] space-age
 - [x] sum-of-multiples
-- [ ] isogram
 - [ ] perfect numbers
+- [ ] isogram
