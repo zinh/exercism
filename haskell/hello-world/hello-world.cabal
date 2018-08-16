@@ -1,6 +1,8 @@
--- This file has been generated from package.yaml by hpack version 0.17.0.
+-- This file has been generated from package.yaml by hpack version 0.28.2.
 --
 -- see: https://github.com/sol/hpack
+--
+-- hash: 21b7c884dc3683d1f475321a5829ce26c2c2ffa7a44121644754c1a92e55be59
 
 name:           hello-world
 version:        0.0.0
@@ -21,6 +23,8 @@ library
 test-suite test
   type: exitcode-stdio-1.0
   main-is: Tests.hs
+  other-modules:
+      Paths_hello_world
   hs-source-dirs:
       test
   build-depends:
