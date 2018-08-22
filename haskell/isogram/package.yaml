@@ -3,11 +3,13 @@ version: 1.4.0.4
 
 dependencies:
   - base
+  - containers
 
 library:
   exposed-modules: Isogram
   source-dirs: src
   # dependencies:
+  # - Data.Map
   # - foo       # List here the packages you
   # - bar       # want to use in your solution.
 

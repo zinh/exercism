@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d9f6fa3a8891970c3171a16f5e7d5c3b046f9aa22795245c001175a5fd5bb54a
+-- hash: a674ab33e05acee633e950dfc4e969b99ddcb794531280ade56d8e9a0d9be45f
 
 name:           isogram
 version:        1.4.0.4
@@ -18,6 +18,7 @@ library
       src
   build-depends:
       base
+    , containers
   default-language: Haskell2010
 
 test-suite test
@@ -29,6 +30,7 @@ test-suite test
       test
   build-depends:
       base
+    , containers
     , hspec
     , isogram
   default-language: Haskell2010
