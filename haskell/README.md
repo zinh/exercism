@@ -19,4 +19,5 @@
 - [x] space-age
 - [x] sum-of-multiples
 - [x] perfect numbers
-- [ ] isogram
+- [x] isogram
+- [ ] diamon
