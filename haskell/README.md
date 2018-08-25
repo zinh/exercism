@@ -18,5 +18,6 @@
 - [x] run-length-encoding
 - [x] space-age
 - [x] sum-of-multiples
-- [ ] perfect numbers
-- [ ] isogram
+- [x] perfect numbers
+- [x] isogram
+- [ ] diamon
