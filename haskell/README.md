@@ -20,4 +20,4 @@
 - [x] sum-of-multiples
 - [x] perfect numbers
 - [x] isogram
-- [ ] diamon
+- [x] diamon
