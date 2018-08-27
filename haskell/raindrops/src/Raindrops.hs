@@ -12,3 +12,4 @@ mapN :: Int -> String
 mapN 3 = "Pling"
 mapN 5 = "Plang"
 mapN 7 = "Plong"
+mapN _ = ""
