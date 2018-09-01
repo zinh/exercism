@@ -1,23 +1,26 @@
-module IsbnVerifier (isbn) where
+module IsbnVerifier (isbn, normalize) where
 import Data.Char (ord)
 
 isbn :: String -> Bool
-isbn s = validDigit digits
+isbn s = 
+  case digits of 
+    Just validDigits -> if length validDigits /= 10 then False else validate validDigits
+    Nothing -> False
   where digits = normalize s
 
 normalize ::String -> Maybe String
-normalize isbn = [c | c <- isbn, c == 'X' || (c >= '0' && c <= '9')]
+normalize isbn = sequence (map f $ zip [0..] str)
+  where str = [c | c <- isbn, c /= '-']
+        f (idx, c)
+          | (c >= '0' && c <= '9') || (c == 'X' && idx == 9) = Just c
+          | otherwise = Nothing
 
-validDigit :: String -> Bool
-validDigit digits
-  | length digits == 10 = checkDigits digits
-  | otherwise = False
-
-checkDigits :: String -> Bool
-checkDigits digits 
-  | fst result `mod` 11 == 0 = True
-  | otherwise = False
-  where result = foldl (\memo digit -> (fst memo + snd memo * score digit, snd memo - 1)) (0, length digits) digits
-        score digit
-          | digit == 'X' = 10
-          | otherwise = (ord digit) - (ord '0')
+validate :: String -> Bool
+validate digits = 
+  case totalScore `mod` 11 of 
+    0 -> True
+    otherwise -> False
+  where totalScore = foldl f 0 $ zip [0..] digits
+        f score (idx, c) 
+          | c == 'X' = score + (10 - idx) * 10
+          | otherwise = score + (10 - idx) * ((ord c) - (ord '0'))
