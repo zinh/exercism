@@ -24,4 +24,21 @@ class Edge(object):
 
 class Graph(object):
     def __init__(self, data=[]):
-        pass
+        self.nodes, self.edges, self.attrs = [], [], {}
+        for child in data:
+            if len(child) <= 1:
+                raise TypeError("Invalid item")
+            if child[0] == NODE:
+                if not isinstance(child[2], dict):
+                    raise ValueError("Invalid node")
+                self.nodes.append(Node(child[1], child[2]))
+            elif child[0] == EDGE:
+                if len(child) < 4:
+                    raise ValueError("Invalid edge")
+                self.edges.append(Edge(child[1], child[2], child[3]))
+            elif child[0] == ATTR:
+                if len(child) != 3:
+                    raise ValueError("Invalid attr")
+                self.attrs[child[1]] = child[2]
+            else:
+                raise ValueError("Unknow item")
