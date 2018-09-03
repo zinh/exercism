@@ -13,34 +13,27 @@ class Node():
 def BuildTree(records):
     root = None
     records.sort(key=lambda x: x.record_id)
-    ordered_id = [i.record_id for i in records]
     if records:
-        ValidateTree(ordered_id)
+        ValidateTree(records)
     else:
         return None
     trees = []
     parent = {}
-    trees = CreateTree(ordered_id, records)
-    for record_id in range(len(ordered_id)):
-        for node in trees:
-            if record_id == node.node_id:
-                parent = node
-        for record in records:
-            if record.parent_id == record_id:
-                for node in trees:
-                    if node.node_id == 0:
-                        continue
-                    if record.record_id == node.node_id:
-                        child = node
-                        parent.children.append(child)
+    trees = CreateTree(records)
+    parent_hash = {}
+    for record in records:
+        parent_hash.setdefault(record.parent_id, []).append(record.record_id)
+    for parent_id, child_ids in parent_hash.items():
+        trees[parent_id].children = [trees[child_id] for child_id in child_ids if child_id != 0]
+    tree_array = list(trees.values())
     if len(trees) > 0:
-        root = trees[0]
+        root = tree_array[0]
     return root
 
-def ValidateTree(ordered_id):
-    if ordered_id[-1] != len(ordered_id) - 1:
+def ValidateTree(records):
+    if records[-1].record_id != len(records) - 1:
         raise ValueError('Tree must be continuous')
-    if ordered_id[0] != 0:
+    if records[0].record_id != 0:
         raise ValueError('Tree must start with id 0')
 
 def ValidateNode(node):
@@ -53,11 +46,9 @@ def ValidateNode(node):
         if node.record_id != 0:
             raise ValueError('Tree is a cycle')
 
-def CreateTree(ordered_id, records):
-    trees = []
-    for record_id in range(len(ordered_id)):
-        for record in records:
-            if ordered_id[record_id] == record.record_id:
-                ValidateNode(record)
-                trees.append(Node(ordered_id[record_id]))
+def CreateTree(records):
+    trees = {}
+    for record in records:
+        ValidateNode(record)
+        trees[record.record_id] = Node(record.record_id)
     return trees
