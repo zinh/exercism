@@ -9,7 +9,6 @@ class Node():
         self.node_id = node_id
         self.children = []
 
-
 def BuildTree(records):
     root = None
     records.sort(key=lambda x: x.record_id)
@@ -19,9 +18,11 @@ def BuildTree(records):
         return None
     trees = []
     parent = {}
-    trees = CreateTree(records)
+    trees = {}
     parent_hash = {}
     for record in records:
+        ValidateNode(record)
+        trees[record.record_id] = Node(record.record_id)
         parent_hash.setdefault(record.parent_id, []).append(record.record_id)
     for parent_id, child_ids in parent_hash.items():
         trees[parent_id].children = [trees[child_id] for child_id in child_ids if child_id != 0]
@@ -45,10 +46,3 @@ def ValidateNode(node):
     if node.record_id == node.parent_id:
         if node.record_id != 0:
             raise ValueError('Tree is a cycle')
-
-def CreateTree(records):
-    trees = {}
-    for record in records:
-        ValidateNode(record)
-        trees[record.record_id] = Node(record.record_id)
-    return trees
