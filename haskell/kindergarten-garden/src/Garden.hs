@@ -10,19 +10,21 @@ data Plant = Clover
            | Violets
            deriving (Eq, Show)
 
-type Garden = ([Plant], [Plant])
+type Garden = [(String, Plant)]
 
 garden :: [String] -> String -> Garden
-garden students plants = map stringToPlans lines plants
+garden students plants = concat $ (map (zip studentList)) planList
+  where planList = map stringToPlans (lines plants)
+        studentList = students >>= replicate 2
 
 lookupPlants :: String -> Garden -> [Plant]
-lookupPlants student garden = error "You need to implement this function."
+lookupPlants student garden = map snd $ filter (\(name, plant) -> name == student) garden
 
 stringToPlans :: String -> [Plant]
 stringToPlans str = [charToPlant c | c <- str]
 
 charToPlant c
-  | 'C' = Clover
-  | 'G' = Grass
-  | 'R' = Radishes
-  | 'V' = Violets
+  | c == 'C' = Clover
+  | c == 'G' = Grass
+  | c == 'R' = Radishes
+  | c == 'V' = Violets
