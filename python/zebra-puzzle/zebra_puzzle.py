@@ -8,8 +8,7 @@ predicates = [['Englishman', 'red'], ['Spaniard', 'dog'],
         ['coffee', 'green'], ['Ukrainian', 'tea'],
         ['Old Gold','snails'], ['Kools','yellow']
         ['Lucky Strike','orange juice'], ['Japanese','Parliaments']
-        ['',''], ['','']
-        ]
+        ['',''], ['','']]
 
 def drinks_water():
     pass
