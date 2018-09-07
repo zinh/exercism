@@ -30,17 +30,18 @@ mkRobot :: Bearing -> (Integer, Integer) -> Robot
 mkRobot direction (a, b) = Robot (Coordinate a b) direction
 
 simulate :: Robot -> String -> Robot
+simulate r [] = r
 simulate (Robot c@(Coordinate m n) bearing) (x:xs)
-  | x == 'R' = simulate (Robot coordinate (turnRight bearing)) xs
-  | x == 'L' = simulate (Robot coordinate (turnLeft bearing)) xs
+  | x == 'R' = simulate (Robot c (turnRight bearing)) xs
+  | x == 'L' = simulate (Robot c (turnLeft bearing)) xs
   | x == 'A' = simulate (Robot (Coordinate (m + a) (n + b)) bearing) xs
-  where (a, b) = mapBearing bearing
+  where Coordinate a b = mapBearing bearing
 
 turnLeft :: Bearing -> Bearing
-turnLeft direction = mul Matrix2D 0 (-1) 1 0 (mapBearing direction)
+turnLeft direction = mapCoordinate $ mul (Matrix2D 0 (-1) 1 0) (mapBearing direction)
 
 turnRight :: Bearing -> Bearing
-turnRight direction = mul (Matrix2D 0 1 (-1) 0) (mapBearing direction)
+turnRight direction = mapCoordinate $ mul (Matrix2D 0 1 (-1) 0) (mapBearing direction)
 
 mul :: Matrix2D -> Coordinate -> Coordinate
 mul (Matrix2D x11 x12 x21 x22) (Coordinate a b) = Coordinate (x11 * a + x12 * b) (x21 *  a + x22 * b)
@@ -51,3 +52,9 @@ mapBearing b
   | b == East = Coordinate 1 0
   | b == South = Coordinate 0 (-1)
   | b == West = Coordinate (-1) 0
+
+mapCoordinate :: Coordinate -> Bearing
+mapCoordinate (Coordinate 0 1) = North
+mapCoordinate (Coordinate 1 0) = East
+mapCoordinate (Coordinate 0 (-1)) = South
+mapCoordinate (Coordinate (-1) 0) = West
