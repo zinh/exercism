@@ -14,6 +14,7 @@ class LinkedList(object):
         if len(values) == 0:
             self.root = None
         else:
+            values = values[::-1]
             self.root = Node(values[0], None)
             prev_node = self.root
             for value in values[1:]:
@@ -33,7 +34,12 @@ class LinkedList(object):
         return self
 
     def __next__(self):
-        pass
+        if self.root == None:
+            raise StopIteration
+        else:
+            current_value = self.root.value
+            self.root = self.root.next
+            return current_value
 
     def head(self):
         if self.root != None:
@@ -51,11 +57,23 @@ class LinkedList(object):
     def pop(self):
         if self.root == None:
             raise EmptyListException("Empty list")
-        else:
-            self.root = self.root.next
+        value = self.root.value
+        self.root = self.root.next
+        return value
 
     def reversed(self):
-        current_node = self.root
+        if self.root == None:
+            return LinkedList([])
+        prev_node = self.root
+        current_node = self.root.next
+        prev_node.next = None
+        while current_node != None:
+            next_node = current_node.next
+            current_node.next = prev_node
+            prev_node = current_node
+            current_node = next_node
+        self.root = prev_node
+        return self
 
 class EmptyListException(Exception):
     pass
