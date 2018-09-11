@@ -24,3 +24,10 @@ weekMap = Map.fromList [(1, Monday), (2, Tuesday), (3, Wednesday), (4, Thursday)
 meetupDay :: Schedule -> Weekday -> Integer -> Int -> Day
 meetupDay schedule weekday year month = error "You need to implement this function."
   where (_, weekNumber, firstDayOfMonth) = toWeekDate $ fromGregorian year month 1
+
+intToWeekday :: Int -> Weekday
+intToWeekday i = Map.findWithDefault Monday i weekMap
+
+firstWeekdayOfMonth :: Weekday -> Integer -> Int
+firstWeekdayOfMonth weekday year month = 1
+  where (_, weekNumber, firstDayOfMonth) = toWeekDate $ fromGregorian year month 1
