@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a1fb8dff21fb8cd7aedd7e16e9b014e67f4a460dd33e39672d5b608f421eda7c
+-- hash: d4622a3f4e017de55ce77ddb380e8345100247c541aee6abfed80429b685e022
 
 name:           meetup
 version:        1.1.0.4
@@ -18,6 +18,7 @@ library
       src
   build-depends:
       base
+    , containers
     , time
   default-language: Haskell2010
 
@@ -30,6 +31,7 @@ test-suite test
       test
   build-depends:
       base
+    , containers
     , hspec
     , meetup
     , time

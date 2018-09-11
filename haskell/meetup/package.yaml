@@ -4,6 +4,7 @@ version: 1.1.0.4
 dependencies:
   - base
   - time
+  - containers
 
 library:
   exposed-modules: Meetup
