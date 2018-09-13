@@ -10,28 +10,36 @@ module LinkedList
     , toList
     ) where
 
-data LinkedList a = Dummy deriving (Eq, Show)
+data LinkedList a = Cons a (LinkedList a) | Empty deriving (Eq, Show)
 
 datum :: LinkedList a -> a
-datum linkedList = error "You need to implement this function."
+datum (Cons head _) = head
 
 fromList :: [a] -> LinkedList a
-fromList xs = error "You need to implement this function."
+fromList xs = foldr (\x memo -> Cons x memo) Empty xs
 
 isNil :: LinkedList a -> Bool
-isNil linkedList = error "You need to implement this function."
+isNil Empty = True
+isNil _ = False
 
 new :: a -> LinkedList a -> LinkedList a
-new x linkedList = error "You need to implement this function."
+new x linkedList = Cons x linkedList
 
 next :: LinkedList a -> LinkedList a
-next linkedList = error "You need to implement this function."
+next (Cons _ tail) = tail
+next Empty = Empty
 
 nil :: LinkedList a
-nil = error "You need to implement this function."
+nil = Empty
 
 reverseLinkedList :: LinkedList a -> LinkedList a
-reverseLinkedList linkedList = error "You need to implement this function."
+reverseLinkedList lst = reverseLinkedList' lst Empty
+
+reverseLinkedList' :: LinkedList a -> LinkedList a -> LinkedList a
+reverseLinkedList' Empty t = t
+reverseLinkedList' (Cons head Empty) t = Cons head t
+reverseLinkedList' (Cons head tail) t = reverseLinkedList' tail (Cons head t)
 
 toList :: LinkedList a -> [a]
-toList linkedList = error "You need to implement this function."
+toList (Cons h t) = h:(toList t)
+toList Empty = []
