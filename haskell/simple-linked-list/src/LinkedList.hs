@@ -1,3 +1,4 @@
+{-# LANGUAGE BangPatterns #-}
 module LinkedList
     ( LinkedList
     , datum
@@ -9,6 +10,8 @@ module LinkedList
     , reverseLinkedList
     , toList
     ) where
+
+import Prelude hiding (foldl')
 
 data LinkedList a = Cons a (LinkedList a) | Empty deriving (Eq, Show)
 
@@ -32,13 +35,12 @@ next Empty = Empty
 nil :: LinkedList a
 nil = Empty
 
-reverseLinkedList :: LinkedList a -> LinkedList a
-reverseLinkedList lst = reverseLinkedList' lst Empty
+foldl' :: (LinkedList a -> a -> LinkedList a) -> LinkedList a -> LinkedList a -> LinkedList a
+foldl' _ z Empty = z
+foldl' f !z (Cons x xs) = foldl' f (f z x) xs
 
-reverseLinkedList' :: LinkedList a -> LinkedList a -> LinkedList a
-reverseLinkedList' Empty t = t
-reverseLinkedList' (Cons head Empty) t = Cons head t
-reverseLinkedList' (Cons head tail) t = reverseLinkedList' tail (Cons head t)
+reverseLinkedList :: LinkedList a -> LinkedList a
+reverseLinkedList lst = foldl' (\memo x -> Cons x memo) Empty lst
 
 toList :: LinkedList a -> [a]
 toList (Cons h t) = h:(toList t)
