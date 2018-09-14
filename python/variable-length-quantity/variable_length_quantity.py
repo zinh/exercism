@@ -31,5 +31,3 @@ def convert_number(groups):
     for idx, group in enumerate(groups):
         number = number + group * (128**idx)
     return number
-
-#print(encode([0x2000, 0x123456, 0xfffffff, 0x0, 0x3fff, 0x4000]))
