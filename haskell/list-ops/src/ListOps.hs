@@ -1,3 +1,4 @@
+{-# LANGUAGE BangPatterns #-}
 module ListOps
   ( length
   , reverse
@@ -13,25 +14,33 @@ import Prelude hiding
   ( length, reverse, map, filter, foldr, (++), concat )
 
 foldl' :: (b -> a -> b) -> b -> [a] -> b
-foldl' f z xs = error "You need to implement this function."
+foldl' _ !z [] = z
+foldl' f !z (x:xs) = foldl' f (f z x) xs
 
 foldr :: (a -> b -> b) -> b -> [a] -> b
-foldr f z xs = error "You need to implement this function."
+foldr f z [] = z
+foldr f z (x:xs) = f x (foldr f z xs)
 
 length :: [a] -> Int
-length xs = error "You need to implement this function."
+length [] = 0
+length (x:xs) = 1 + (length xs)
 
 reverse :: [a] -> [a]
-reverse xs = error "You need to implement this function."
+reverse xs = foldl' (\memo x -> x:memo) [] xs
 
 map :: (a -> b) -> [a] -> [b]
-map f xs = error "You need to implement this function."
+map _ [] = []
+map f (x:xs) = (f x) : (map f xs)
 
 filter :: (a -> Bool) -> [a] -> [a]
-filter p xs = error "You need to implement this function."
+filter _ [] = []
+filter p (x:xs)
+  | p x = x : (filter p xs)
+  | otherwise = filter p xs
 
 (++) :: [a] -> [a] -> [a]
-xs ++ ys = error "You need to implement this function."
+xs ++ ys = foldr (:) ys xs
 
 concat :: [[a]] -> [a]
-concat xss = error "You need to implement this function."
+concat [] = []
+concat xss = foldr (++) [] xss
