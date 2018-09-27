@@ -30,8 +30,9 @@ fromList :: [[a]] -> Matrix a
 fromList xss = M xss
 
 fromString :: Read a => String -> Matrix a
-fromString xs = fromList $ map convertRow (lines xs)
-  where convertRow row = map (\x -> (read x)) (words row)
+fromString = error "You need to implement this function."
+--fromString xs = fromList $ map convertRow (lines xs)
+--  where convertRow row = map (\x -> (read x)) (words row)
 
 reshape :: (Int, Int) -> Matrix a -> Matrix a
 reshape dimensions matrix = error "You need to implement this function."
@@ -46,4 +47,15 @@ shape :: Matrix a -> (Int, Int)
 shape (M xss@(row:xs)) = (length xss, length row)
 
 transpose :: Matrix a -> Matrix a
-transpose matrix = error "You need to implement this function."
+transpose (M []) = M []
+transpose matrix =
+  let (rest, col) = firstColumn matrix
+      M r = transpose rest
+  in M (col:r)
+
+firstColumn :: Matrix a -> (Matrix a, [a])
+firstColumn (M []) = (M [], [])
+firstColumn (M [[]]) = (M [], [])
+firstColumn (M ((cell:row):xss)) =
+  let (M rest, col) = firstColumn (M xss)
+  in (M (row:rest), cell:col)
