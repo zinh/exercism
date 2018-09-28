@@ -1,10 +1,12 @@
 def tally(tournament_results):
+    if tournament_results == '':
+        return 'Team                           | MP |  W |  D |  L |  P'
     result = {}
     for line in tournament_results.split('\n'):
         result = get_result(result, line)
     result = calculate_score(result)
     sorted_teams = rank_team(result)
-    return result
+    return print_result(sorted_teams, result)
 
 def get_result(current_result, line):
     team1, team2, result = line.split(';')
@@ -33,14 +35,9 @@ def rank_team(result):
     return teams
 
 def print_result(sorted_teams, results):
-    template = "{0:31}| {1:2} | {2:2} | {3} | {4} | {5}"
-    table = ['Team                           | MP |  W |  D |  L |  P']
+    template = "{0:31}| {1:2} | {2:2} | {3:2} | {4:2} | {5:2}"
+    content = [template.format('Team', 'MP', ' W', ' D', ' L', ' P')]
     for team in sorted_teams:
         result = results[team]
-
-results = ('Allegoric Alaskans;Blithering Badgers;loss\n'
-        'Devastating Donkeys;Allegoric Alaskans;loss\n'
-        'Courageous Californians;Blithering Badgers;draw\n'
-        'Allegoric Alaskans;Courageous Californians;win')
-
-print(tally(results))
+        content.append(template.format(team, result['win'] + result['loss'] + result['draw'], result['win'], result['draw'], result['loss'], result['score']))
+    return "\n".join(content)
