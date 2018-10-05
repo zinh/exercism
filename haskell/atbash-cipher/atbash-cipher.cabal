@@ -1,0 +1,36 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 07f82a49f98a07027dd0067335b3cbd55b5d1e64fb6872306e4898f9365df827
+
+name:           atbash-cipher
+version:        1.1.0.4
+build-type:     Simple
+cabal-version:  >= 1.10
+
+library
+  exposed-modules:
+      Atbash
+  other-modules:
+      Paths_atbash_cipher
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+    , split
+  default-language: Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  main-is: Tests.hs
+  other-modules:
+      Paths_atbash_cipher
+  hs-source-dirs:
+      test
+  build-depends:
+      atbash-cipher
+    , base
+    , hspec
+    , split
+  default-language: Haskell2010
