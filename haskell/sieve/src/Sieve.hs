@@ -1,4 +1,6 @@
 module Sieve (primesUpTo) where
 
 primesUpTo :: Integer -> [Integer]
-primesUpTo n = error "You need to implement this function."
+primesUpTo k = 
+  let compoundNumbers = [i * n | n <- [2..k], i <- [2..k]]
+   in [i | i <- [2..k], not (elem i compoundNumbers)]
