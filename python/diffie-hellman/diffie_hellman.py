@@ -1,10 +1,10 @@
-def private_key(p):
-    pass
+from secrets import randbelow
 
+def private_key(p):
+    return randbelow(p - 2) + 2
 
 def public_key(p, g, private):
-    pass
-
+    return (g ** private) % p
 
 def secret(p, public, private):
-    pass
+    return (public ** private) % p
