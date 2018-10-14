@@ -3,6 +3,8 @@ version: 1.1.0.4
 
 dependencies:
   - base
+  - containers
+  - split
 
 library:
   exposed-modules: OCR
