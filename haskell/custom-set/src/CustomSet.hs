@@ -16,43 +16,54 @@ module CustomSet
 
 import Prelude hiding (null)
 
-data CustomSet a = Dummy deriving (Eq, Show)
+--data CustomSet a = Dummy deriving (Eq, Show)
+newtype CustomSet a = L [a] deriving (Show)
 
-delete :: a -> CustomSet a -> CustomSet a
-delete x set = error "You need to implement this function."
+instance Eq a => Eq (CustomSet a) where
+  --(==) :: Eq a => CustomSet a -> CustomSet a -> Bool
+  setA == setB = null (difference setA setB) && null (difference setB setA)
 
-difference :: CustomSet a -> CustomSet a -> CustomSet a
-difference setA setB = error "You need to implement this function."
+delete :: Eq a => a -> CustomSet a -> CustomSet a
+delete _ (L []) = empty
+delete x (L ys) = L (filter (\y -> y /= x) ys)
+
+difference :: Eq a => CustomSet a -> CustomSet a -> CustomSet a
+difference setA (L []) = setA
+difference setA (L (y:ys)) = difference (delete y setA) (L ys)
 
 empty :: CustomSet a
-empty = error "You need to implement this function."
+empty = L []
 
-fromList :: [a] -> CustomSet a
-fromList xs = error "You need to implement this function."
+fromList :: Eq a => [a] -> CustomSet a
+fromList xs = foldr insert empty xs
 
-insert :: a -> CustomSet a -> CustomSet a
-insert x set = error "You need to implement this function."
+insert :: Eq a => a -> CustomSet a -> CustomSet a
+insert x (L set)
+  | x `elem` set = L set
+  | otherwise = L (x:set)
 
-intersection :: CustomSet a -> CustomSet a -> CustomSet a
-intersection setA setB = error "You need to implement this function."
+intersection :: Eq a => CustomSet a -> CustomSet a -> CustomSet a
+intersection setA setB = difference setA (difference setA setB)
 
-isDisjointFrom :: CustomSet a -> CustomSet a -> Bool
-isDisjointFrom setA setB = error "You need to implement this function."
+isDisjointFrom :: Eq a => CustomSet a -> CustomSet a -> Bool
+isDisjointFrom setA setB = null (intersection setA setB)
 
-isSubsetOf :: CustomSet a -> CustomSet a -> Bool
-isSubsetOf setA setB = error "You need to implement this function."
+isSubsetOf :: Eq a => CustomSet a -> CustomSet a -> Bool
+isSubsetOf setA setB = null (difference setA setB)
 
-member :: a -> CustomSet a -> Bool
-member x set = error "You need to implement this function."
+member :: Eq a => a -> CustomSet a -> Bool
+member x (L set) = x `elem` set
 
 null :: CustomSet a -> Bool
-null set = error "You need to implement this function."
+null (L set) = 
+  case set of [] -> True
+              otherwise -> False
 
 size :: CustomSet a -> Int
-size set = error "You need to implement this function."
+size (L set) = length set
 
 toList :: CustomSet a -> [a]
-toList set = error "You need to implement this function."
+toList (L set) = set
 
-union :: CustomSet a -> CustomSet a -> CustomSet a
-union setA setB = error "You need to implement this function."
+union :: Eq a => CustomSet a -> CustomSet a -> CustomSet a
+union setA (L setB) = foldr insert setA setB
