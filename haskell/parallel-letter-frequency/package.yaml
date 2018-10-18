@@ -5,6 +5,8 @@ dependencies:
   - base
   - containers
   - text
+  - parallel
+  - split
 
 library:
   exposed-modules: Frequency

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9faedd322d5121adbf4858c46975c2a6b5c82f885c8e62a6350e95f117a3bbab
+-- hash: 555dc124c9d7b689ed3d6a96a4bacd813bf51a42233693b255eeb1156e64908f
 
 name:           parallel-letter-frequency
 version:        0.1.0.3
@@ -13,12 +13,16 @@ library
   exposed-modules:
       Frequency
   other-modules:
+      ParMap
+      Sort
       Paths_parallel_letter_frequency
   hs-source-dirs:
       src
   build-depends:
       base
     , containers
+    , parallel
+    , split
     , text
   default-language: Haskell2010
 
@@ -33,7 +37,9 @@ test-suite test
       base
     , containers
     , hspec
+    , parallel
     , parallel-letter-frequency
+    , split
     , text
   default-language: Haskell2010
 
@@ -49,6 +55,8 @@ benchmark bench
       base
     , containers
     , criterion
+    , parallel
     , parallel-letter-frequency
+    , split
     , text
   default-language: Haskell2010
