@@ -1,0 +1,54 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 9faedd322d5121adbf4858c46975c2a6b5c82f885c8e62a6350e95f117a3bbab
+
+name:           parallel-letter-frequency
+version:        0.1.0.3
+build-type:     Simple
+cabal-version:  >= 1.10
+
+library
+  exposed-modules:
+      Frequency
+  other-modules:
+      Paths_parallel_letter_frequency
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+    , containers
+    , text
+  default-language: Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  main-is: Tests.hs
+  other-modules:
+      Paths_parallel_letter_frequency
+  hs-source-dirs:
+      test
+  build-depends:
+      base
+    , containers
+    , hspec
+    , parallel-letter-frequency
+    , text
+  default-language: Haskell2010
+
+benchmark bench
+  type: exitcode-stdio-1.0
+  main-is: Benchmark.hs
+  other-modules:
+      Paths_parallel_letter_frequency
+  hs-source-dirs:
+      bench
+  ghc-options: -threaded -with-rtsopts=-N -O2
+  build-depends:
+      base
+    , containers
+    , criterion
+    , parallel-letter-frequency
+    , text
+  default-language: Haskell2010
