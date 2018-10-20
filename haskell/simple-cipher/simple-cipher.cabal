@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: daa72d0b4f03514eb375cf16b120c36530d0c64c8fd9d04a3b8167641f6745f1
+-- hash: 9e4e0dfc4e23e1c414fa74ad90b19affa45f15e5bdef35c6ab4064a303dfd5cf
 
 name:           simple-cipher
 version:        1.1.0.3
@@ -17,7 +17,9 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base
+      array
+    , base
+    , random
   default-language: Haskell2010
 
 test-suite test
@@ -28,7 +30,9 @@ test-suite test
   hs-source-dirs:
       test
   build-depends:
-      base
+      array
+    , base
     , hspec
+    , random
     , simple-cipher
   default-language: Haskell2010
