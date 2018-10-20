@@ -1,0 +1,34 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: daa72d0b4f03514eb375cf16b120c36530d0c64c8fd9d04a3b8167641f6745f1
+
+name:           simple-cipher
+version:        1.1.0.3
+build-type:     Simple
+cabal-version:  >= 1.10
+
+library
+  exposed-modules:
+      Cipher
+  other-modules:
+      Paths_simple_cipher
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+  default-language: Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  main-is: Tests.hs
+  other-modules:
+      Paths_simple_cipher
+  hs-source-dirs:
+      test
+  build-depends:
+      base
+    , hspec
+    , simple-cipher
+  default-language: Haskell2010
