@@ -1,17 +1,18 @@
-module Frequency (frequency, executeChunk) where
+module Frequency (frequency, countChar) where
 
 import Data.List.Split (chunksOf)
 import Control.Parallel (par)
-import Data.Map  (Map, empty, alter)
-import qualified Data.Text as T (Text, foldl')
+import Data.Map  (Map, empty, alter, unionWith)
+import Data.Char (isLetter)
+import qualified Data.Text as T (Text, unpack, toLower)
 
 frequency :: Int -> [T.Text] -> Map Char Int
-frequency _ _ = empty
 frequency nWorkers texts = 
-  let jobs = map executeChunk (chunksOf nWorkers texts)
-   in empty
+  let jobs = chunksOf nWorkers (concat (map (T.unpack . T.toLower) texts))
+      results = map countChar jobs
+   in foldr (unionWith (+)) empty results
 
-executeChunk :: T.Text -> Map Char Int
-executeChunk text = T.foldl' (\memo c -> alter f c memo) empty text
-  where f value = case value of Just a -> Just (a + 1)
+countChar :: String -> Map Char Int
+countChar s = foldr (\char m -> alter f char m) empty (filter isLetter s)
+  where f count = case count of Just c -> Just (c + 1)
                                 Nothing -> Just 1

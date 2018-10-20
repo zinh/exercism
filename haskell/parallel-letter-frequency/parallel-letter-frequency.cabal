@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 555dc124c9d7b689ed3d6a96a4bacd813bf51a42233693b255eeb1156e64908f
+-- hash: f966cc9dd114e4d354526c8c5ba88e81e3005fa4d4a6525bd71b35d929f5a77c
 
 name:           parallel-letter-frequency
 version:        0.1.0.3
@@ -13,7 +13,6 @@ library
   exposed-modules:
       Frequency
   other-modules:
-      ParMap
       Sort
       Paths_parallel_letter_frequency
   hs-source-dirs:
