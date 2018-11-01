@@ -1,0 +1,36 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 2a6156e72c9f442fac5fc1173fa42fe2f3b191782754e9287f42ce6ecdfdebab
+
+name:           pig-latin
+version:        1.2.0.5
+build-type:     Simple
+cabal-version:  >= 1.10
+
+library
+  exposed-modules:
+      PigLatin
+  other-modules:
+      Paths_pig_latin
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+    , split
+  default-language: Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  main-is: Tests.hs
+  other-modules:
+      Paths_pig_latin
+  hs-source-dirs:
+      test
+  build-depends:
+      base
+    , hspec
+    , pig-latin
+    , split
+  default-language: Haskell2010
