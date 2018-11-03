@@ -19,5 +19,3 @@ def decode(encoded_message, rails):
         print(r, distance)
         rows += [encoded_message[r::distance]]
     return rows
-
-print(decode('WECRLTEERDSOEEFEAOCAIVDEN', 3))
