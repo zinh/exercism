@@ -1,8 +1,6 @@
-from functools import reduce
-
 class Matrix(object):
     def __init__(self, matrix_string):
-        rows = [list(map(lambda c: int(c), row.split(' '))) for row in matrix_string.split('\n')]
+        rows = [[int(el) for el in row.split(' ')] for row in matrix_string.split('\n')]
         cols = [[None] * len(rows) for c in rows[0]]
         for row_num, row in enumerate(rows):
             for col_num, i in enumerate(row):
