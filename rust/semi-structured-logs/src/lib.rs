@@ -8,17 +8,26 @@ pub enum LogLevel {
     Info,
     Warning,
     Error,
+    Debug
 }
 /// primary function for emitting logs
 pub fn log(level: LogLevel, message: &str) -> String {
-    unimplemented!()
+    if level == LogLevel::Info {
+        format!("[INFO]: {}", message)
+    } else if level == LogLevel::Warning {
+        format!("[WARNING]: {}", message)
+    } else if level == LogLevel::Debug {
+        format!("[DEBUG]: {}", message)
+    } else {
+        format!("[ERROR]: {}", message)
+    }
 }
 pub fn info(message: &str) -> String {
-    unimplemented!()
+    log(LogLevel::Info, message)
 }
 pub fn warn(message: &str) -> String {
-    unimplemented!()
+    log(LogLevel::Warning, message)
 }
 pub fn error(message: &str) -> String {
-    unimplemented!()
+    log(LogLevel::Error, message)
 }
